@@ -1,0 +1,4 @@
+transformers
+vllm
+fschat
+gradio

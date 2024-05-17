@@ -1,0 +1,13 @@
+# 需要修改相关内容
+# >>>> 按需修改 日志文件和端口（ALL）
+
+nohup python -u -m fastchat.serve.controller --host='0.0.0.0' --port=21001 > ./logs/fastchat_serve_controller.log 2>&1 &
+echo 'start controller'
+
+# >>>> 修改 --model-path
+# >>>> 按需修改 --num-gpus
+nohup python -m fastchat.serve.vllm_worker --model-path /llms/Qwen1.5-14B-Chat-GPTQ-Int4 --controller-address http://0.0.0.0:21001 --port 19000 --host 0.0.0.0 --num-gpus 1 --worker-address http://0.0.0.0:19000 --gpu-memory-utilization 0.8 --max-model-len 5696 --trust-remote-code  > ./logs/Qwen1.5-14B-Chat-GPTQ-Int4.log 2>&1 &
+echo 'start worker'
+
+nohup python -u -m fastchat.serve.openai_api_server --host 0.0.0.0 --port 7777 --controller-address http://0.0.0.0:21001 > ./logs/fastchat_api.log 2>&1 &
+echo 'start api'
