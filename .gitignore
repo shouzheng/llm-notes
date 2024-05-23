@@ -1,0 +1,6 @@
+.idea
+llm-notes/env_genesis
+.cache
+.ipynb_checkpoints
+Thumbs.db
+output
